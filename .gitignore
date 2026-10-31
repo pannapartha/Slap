@@ -56,3 +56,7 @@ Thumbs.db
 /game/evidence/*
 !/game/evidence/escape-paths-73129.json
 !/game/evidence/escape-paths-94063.json
+
+.vercel
+.env*
+!.env.example

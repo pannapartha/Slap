@@ -1,5 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';
 import {Match,RULES,gravityAtAltitude,HALF_GRAVITY_ALTITUDE} from '../simulation.mjs';import {loadWorld} from '../server.mjs';
+import {DEFAULT_LAYOUT} from '../public/city-layout.mjs';
 const world=loadWorld(),players=(n,bot=false)=>Array.from({length:n},(_,i)=>({id:'p'+i,name:'Bop '+i,bot}));
 const make=(n=10,bombs=3,options={})=>new Match({players:players(n),bombs,...world,seed:77,roundRange:[100,100],...options});
 function until(m,phase,max=30000){for(let i=0;i<max&&m.phase!==phase;i++)m.step();assert.equal(m.phase,phase)}
@@ -31,7 +32,7 @@ test('jump and dash intents are edge-triggered; dash cooldown cannot be bypassed
 });
 
 test('opened city connects every supported route and bounds all 24 collapse paths below five seconds',()=>{
- const report=JSON.parse(fs.readFileSync(new URL('../evidence/escape-paths.json',import.meta.url)));assert.equal(report.length,24);for(const r of report){assert.equal(r.unreachable,0);assert.ok(r.cells>1500);assert.ok(r.maxPathMetres/RULES.sprintSpeed+.4<5,JSON.stringify(r));}
+ const report=JSON.parse(fs.readFileSync(new URL('../evidence/escape-paths-'+DEFAULT_LAYOUT+'.json',import.meta.url)));assert.equal(report.length,24);for(const r of report){assert.equal(r.unreachable,0);assert.ok(r.cells>1500);assert.ok(r.maxPathMetres/RULES.sprintSpeed+.4<5,JSON.stringify(r));}
 });
 test('a complete ten-bot three-Slapper match ends with one winner; rematch parity alternates dances',()=>{
  const m=make(10,3,{players:players(10,true),roundRange:[10,10]});const log=new Map();for(let i=0;i<30000&&m.phase!=='won';i++){m.step();for(const e of m.events)log.set(e.seq,e);}assert.equal(m.phase,'won');assert.equal(m.alive.length,1);assert.ok(m.winner);assert.equal(m.activeRings,0);assert.ok([...log.values()].some(e=>e.type==='pass'));assert.ok([...log.values()].some(e=>e.type==='explosion'&&e.centres.length===3));assert.equal(m.snapshot().dance,'VictoryA');assert.equal(make(2,1,{matchNumber:2}).snapshot().dance,'VictoryB');
