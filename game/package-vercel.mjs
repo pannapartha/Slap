@@ -2,7 +2,7 @@ import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} fro
 import {productionOrigin} from './deployment/origin.mjs';
 import {prepareOutput} from './deployment/artifacts.mjs';
 import {staticAudit} from './deployment/static-audit.mjs';
-const here=path.dirname(fileURLToPath(import.meta.url)),out=path.join(here,'.vercel/output');
+const here=path.dirname(fileURLToPath(import.meta.url)),repository=path.resolve(here,'..'),manifest=path.join(repository,'package.json'),standalone=fs.existsSync(manifest)&&JSON.parse(fs.readFileSync(manifest,'utf8')).name==='slap-pass-the-bomb',out=path.join(standalone?repository:here,'.vercel/output');
 if(!fs.existsSync(path.join(here,'dist/runtime-config.js')))throw Error('No configured production build. Set the actual SLAP_SERVER_URL and run npm run build:production first');
 const runtime=fs.readFileSync(path.join(here,'dist/runtime-config.js'),'utf8'),match=runtime.match(/SLAP_CONFIG\s*=\s*(\{[^;]+\})/);if(!match)throw Error('Production runtime config missing');productionOrigin(JSON.parse(match[1]).serverURL);
 staticAudit(path.join(here,'dist'));prepareOutput(out);fs.cpSync(path.join(here,'dist'),path.join(out,'static'),{recursive:true});

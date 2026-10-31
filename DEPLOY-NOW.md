@@ -2,6 +2,7 @@
 
 Prepared 2026-10-31. Nothing has been deployed or logged in by the agent. Use one PowerShell window. No GitHub account, Actions or repository push is required. Account access/verification and any billing decision remain yours. Do not purchase anything automatically. Finish active matches before server updates: rooms are memory-only and reset on restart.
 
+CURRENT BLOCKER/FALLBACK: Do not retry hosting GitHub OAuth signup. GitHub source is already published. Use an EXISTING Railway account via email login (or existing Render account) and the local package, plus the existing Vercel CLI account/project slap. No new account/purchase is authorized. Railway CLI is currently unauthenticated; Vercel is authenticated. Backend public HTTPS URL is still required before the frontend can be built. Direct CLI uploads do not require Git repository linking.
 ## A. Railway: log in and upload the prepared server
 
 ```powershell
@@ -31,7 +32,7 @@ Require `ok: true` and game `PASS THE BOMB`, with a valid public TLS certificate
 ## C. Build and deploy the Vercel static frontend
 
 ```powershell
-Set-Location 'G:\Floor is Lava\Slap\game'
+Set-Location 'G:\Floor is Lava\Slap'
 npm.cmd run build:production
 if($LASTEXITCODE){throw 'Build failed; do not deploy'}
 npm.cmd run package:vercel
@@ -44,7 +45,7 @@ Push-Location 'G:\Floor is Lava\Slap\game\release\railway'
 rly variable set "SLAP_ALLOWED_ORIGINS=$frontendOrigin" --service slap-server
 Pop-Location
 # Wait for Railway's variable-change deployment to become healthy, then:
-node deployment/check-public.mjs "$frontendOrigin"
+node game/deployment/check-public.mjs "$frontendOrigin"
 ```
 
 Choose the intended Vercel account/project, framework Other if asked. Use the **stable production alias** from `Aliased:` / Project → Domains. The backend allowlist must match the exact origin people visit; other deployment/preview URLs are rejected unless explicitly added comma-separated. No trailing path. `SLAP_SERVER_URL` is a **local build-time variable**, baked into runtime-config.js; setting it after upload cannot fix an old build. The public check verifies HTTPS, the baked backend URL and two WSS create/join connections. Never disable TLS validation to make it pass. `check-public` does not replace the phone test.
@@ -71,4 +72,5 @@ Share the **Vercel production alias** with players. Copy it from `Aliased:` or V
 Save the last healthy Vercel production deployment URL/ID before later updates. Run `vcl rollback <that-previous-deployment-url-or-id>` from game to restore it. For Railway open Service → Deployments → last known-good deployment → ⋯ → **Rollback**; it restores that deployment's image and variables if retained. CLI 5.71 has no `railway rollback` command; `redeploy` is not a substitute for selecting an older good version. Recheck origin settings and `check-public` afterward. Rooms reset. On a first failed deployment with no healthy predecessor, remove/stop the failed service deployment in the dashboard and fix locally; do not claim a rollback target exists.
 
 Sources: [Railway upload](https://docs.railway.com/cli/up), [domains](https://docs.railway.com/cli/domain), [rollback](https://docs.railway.com/deployments/deployment-actions), [Vercel prebuilt deployment](https://vercel.com/docs/cli/deploy). Detailed local audit: game/DEPLOYMENT.md.
+
 
