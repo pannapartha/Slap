@@ -1,0 +1,58 @@
+# Local dependencies, generated output and account configuration
+node_modules/
+**/node_modules/
+**/dist/
+**/release/
+**/archive/
+**/evidence/
+**/.vercel/
+**/.railway/
+.env
+.env.*
+!.env.example
+.npmrc
+.netrc
+.git-credentials
+credentials*.json
+service-account*.json
+*.pem
+*.key
+*.pfx
+*.p12
+*.log
+*.tmp
+*.zip
+*.gz
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+
+# Authoring sources/reference media remain on this PC, outside the deployable repo.
+*.blend
+*.blend1
+*.blend2
+*.fbx
+*.FBX
+*.mp4
+*.webm
+/mixamo/
+/island reference/
+/UI UX pass/
+/reference image*
+/hf_*.m4a
+/bopling/*
+!/bopling/Bopling.glb
+/world-assets/*
+!/world-assets/BopKingdom.glb
+!/world-assets/BopKingdom-collision.glb
+!/world-assets/manifest.json
+!/world-assets/viewer/
+/world-assets/viewer/*
+!/world-assets/viewer/environment.js
+
+# Two small certified navigation reports are build/test fixtures, not generated uploads.
+!/game/evidence/
+/game/evidence/*
+!/game/evidence/escape-paths-73129.json
+!/game/evidence/escape-paths-94063.json

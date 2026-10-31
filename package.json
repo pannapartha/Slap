@@ -1,0 +1,22 @@
+{
+  "name": "slap-pass-the-bomb",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": "22.x" },
+  "scripts": {
+    "start": "node game/server.mjs",
+    "build": "npm --prefix game run build",
+    "build:production": "npm --prefix game run build:production",
+    "test": "npm --prefix game test",
+    "test:production": "npm --prefix game run test:production",
+    "package:server": "npm --prefix game run package:server",
+    "package:vercel": "npm --prefix game run package:vercel"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "5.3.0",
+    "three": "0.186.1",
+    "ws": "8.22.0"
+  },
+  "devDependencies": { "playwright": "1.63.0" }
+}

@@ -1,0 +1,9 @@
+{
+  "bopling/Bopling.glb": "107294c51efada39033753d4323a12583946a9b5aa481c7f9c3f2af40290e139",
+  "world-assets/BopKingdom.glb": "11381a74038440a5fe90de10b4bcf45ac8aed1ac0a75c4f23e65c4f9e8127ca8",
+  "world-assets/BopKingdom-collision.glb": "b3cf91978919d548fe18ab8c4cd1143c1744ff056dba3e4fcb4ca116c3258540",
+  "world-assets/manifest.json": "68a09f2dbc1a743bbdf25b39e6c9ff0cc6305f309dcdc8a2ba6714186d2bec7a",
+  "world-assets/viewer/environment.js": "37ec708bc2e69017eef921d3d4f7e7d08cbc23177dc25bea9aa6ede4d327a9cf",
+  "game/public/animations/GetUp.glb": "d7946929b173ba0038c75914ec3ef416c499e08a51cc6a08331b4fc1710bf99f",
+  "game/public/audio/slap-theme.m4a": "f0bd024df7ba05e15ec11b7799f2e27fa65b058e13b6b52c73ee5d1627a2216f"
+}

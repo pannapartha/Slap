@@ -1,0 +1,8 @@
+dist/
+release/
+.vercel/
+.env*
+!.env.example
+.railway/
+archive/deployment-artifacts/
+archive/deployment-preflight-2026-10-31/

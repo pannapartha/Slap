@@ -1,0 +1,30 @@
+{
+  "name": "pass-the-bomb",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test --test-concurrency=1 tests/*.test.mjs",
+    "test:browser": "node deadline-match.mjs",
+    "build:collision": "node build-collision.mjs && node build-navigation.mjs",
+    "build": "node check-build.mjs",
+    "test:controls": "node controls-browser.mjs",
+    "test:feel": "node pass1-browser.mjs && node check-escape.mjs",
+    "test:animation": "node animation-check.mjs",
+    "test:visual": "node visual-browser.mjs",
+    "test:deadline": "node deadline-presentation.mjs && node deadline-match.mjs",
+    "build:layouts": "node build-collision.mjs 73129 && node build-navigation.mjs 73129 && node build-collision.mjs 94063 && node build-navigation.mjs 94063",
+    "build:production": "node check-build.mjs && node build-production.mjs",
+    "package:server": "node package-server.mjs",
+    "test:release": "node release-matrix.mjs",
+    "package:vercel": "node package-vercel.mjs",
+    "test:production": "node release-production-test.mjs",
+    "test:deployment": "node --test tests/deployment.test.mjs",
+    "preflight:isolated": "node deployment-preflight.mjs",
+    "check:public": "node deployment/check-public.mjs"
+  },
+  "engines": {
+    "node": ">=22.18"
+  }
+}
