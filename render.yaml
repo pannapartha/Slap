@@ -1,0 +1,21 @@
+# Free preview default avoids selecting a paid plan without approval.
+# Free instances can idle. Use existing approved always-on capacity for a final always-on service.
+services:
+  - type: web
+    name: slap-server
+    runtime: node
+    repo: https://github.com/pannapartha/Slap
+    branch: main
+    plan: free
+    numInstances: 1
+    buildCommand: npm ci --omit=dev && npm run package:server && npm ci --omit=dev --ignore-scripts --prefix game/release/railway
+    startCommand: node game/release/railway/Slap/game/server.mjs
+    healthCheckPath: /health
+    autoDeployTrigger: 'off'
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: '10000'
+# Add SLAP_ALLOWED_ORIGINS with the exact Vercel HTTPS origin after the frontend is deployed.
+# HTTP and WebSocket /ws share PORT=10000; Render terminates TLS to supply HTTPS/WSS.

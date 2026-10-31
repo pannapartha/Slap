@@ -74,3 +74,6 @@ Official references checked 2026-10-31: [Railway CLI upload/path root](https://d
 
 
 Railway startCommand runs Node directly (`node Slap/game/server.mjs`) so the tested process handles platform signals without an npm wrapper. `npm start` remains the identical local convenience alias. Public Linux signal delivery remains NOT TESTED.
+
+## Render fallback (current)
+Railway is no longer the active path. Use the root render.yaml with an existing Render account. The build assembles the production package and installs only locked runtime dependencies; start is node game/release/railway/Slap/game/server.mjs (the folder name is historical, not a Railway dependency). PORT=10000, bind 0.0.0.0, health /health, WebSocket /ws. Render supplies HTTPS/WSS on its real service hostname. No GitHub OAuth is required for a public-repository service. CLI login uses the existing Render dashboard and Authorize CLI. No current Render authentication was cached; no service has yet been deployed. Free blueprint default is preview-only and may idle; no paid plan chosen. After backend health is public, use its real origin as SLAP_SERVER_URL, deploy the existing Vercel project and set backend SLAP_ALLOWED_ORIGINS to the exact Vercel origin.
